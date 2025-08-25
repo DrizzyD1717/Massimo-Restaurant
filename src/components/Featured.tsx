@@ -1,3 +1,4 @@
+import { featuredProducts } from "@/data";
 import Image from "next/image";
 import React from "react";
 
@@ -7,26 +8,36 @@ const Featured = () => {
       {/* Wrapper */}
       <div className="w-max flex">
         {/* Single Item */}
-        <div className="w-screen h-[60vh] flex flex-col items-center justify-around p-4">
-          {/* Image Container */}
-          <div className="relative flex-1 w-full">
-            <Image
-              src="/temporary/p1.png"
-              alt=""
-              fill
-              className="object-contain"
-            ></Image>
+
+        {featuredProducts.map((item) => (
+          <div
+            key={item.id}
+            className="w-screen h-[60vh] flex flex-col items-center justify-around p-4 hover:bg-fuchsia-50 transition-all duration-300 md:w-[50vw] xl:w-[33vw] xl:h-[90vh]"
+          >
+            {/* Image Container */}
+            <div className="relative flex-1 w-full hover:rotate-[60deg] transition-all duration-500">
+              {item.img && (
+                <Image
+                  src={item.img}
+                  alt=""
+                  fill
+                  className="object-contain"
+                ></Image>
+              )}
+            </div>
+            {/* Text Container */}
+            <div className="flex-1 flex flex-col items-center text-center justify-center gap-4">
+              <h1 className="text-xl font-bold uppercase xl:text-2xl 2xl:text-3xl">
+                {item.title}
+              </h1>
+              <p className="p-4 2xl:p-8">{item.desc}</p>
+              <span className="text-xl font-bold">${item.price}</span>
+              <button className="bg-red-500 text-white p-2 rounded-md">
+                Add To Cart
+              </button>
+            </div>
           </div>
-          {/* Text Container */}
-          <div className="flex-1 flex flex-col gap-4">
-            <h1 className="text-xl font-bold uppercase">Title</h1>
-            <p className="">Description</p>
-            <span className="text-xl font-bold">$123</span>
-            <button className="bg-red-500 text-white p-2 rounded-md">
-              Add To Cart
-            </button>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );
